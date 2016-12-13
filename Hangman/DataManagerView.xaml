@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="Hangman_MVVM.DataManagerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:Hangman_MVVM"
+             xmlns:material="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="500">
+    <UserControl.Resources>
+        <DataTemplate x:Key="WordTemplate">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Word</Label>
+                    <TextBlock Text="{Binding Path=Content}" />
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="298*"/>
+            <ColumnDefinition Width="219*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox SelectedItem="{Binding SelectedWord, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding WordList, UpdateSourceTrigger=PropertyChanged}" ItemTemplate="{StaticResource WordTemplate}" SelectedIndex="0" />
+        <StackPanel Grid.Column="1" VerticalAlignment="Top">
+            <GroupBox Header="Search" Margin="5">
+                <StackPanel>
+                    <TextBox Text="{Binding Filter, UpdateSourceTrigger=LostFocus}" />
+                    <ComboBox SelectedValue="{Binding ResultAmount}" SelectedIndex="0">
+                        <sys:Int32>10</sys:Int32> 
+                        <sys:Int32>50</sys:Int32>
+                        <sys:Int32>100</sys:Int32>
+                        <sys:Int32>150</sys:Int32>
+                    </ComboBox>
+                    <Button Content="Search" Margin="2" Command="{Binding FillCommand, IsAsync=True}"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Update" Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="4*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150*"/>
+                        <ColumnDefinition Width="219*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Word" HorizontalAlignment="Right" />
+                    <TextBox  Grid.Column="1" Text="{Binding SelectedWord.Content, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
+                    <Button Content="Remove" Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding DeleteCommand, IsAsync=True}" Margin="2"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="New" Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="4*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150*"/>
+                        <ColumnDefinition Width="219*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Word" HorizontalAlignment="Right" />
+                    <TextBox  Grid.Column="1" Text="{Binding NewWord.Content, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
+                    <Button Content="Add" Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding AddCommand, IsAsync=True}" Margin="2"/>
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

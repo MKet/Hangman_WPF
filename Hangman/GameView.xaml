@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="Hangman_MVVM.GameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Hangman_MVVM"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="318*"/>
+            <ColumnDefinition Width="199*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="159*"/>
+            <RowDefinition Height="160*"/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Raad een letter"  Margin="25">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="63*"/>
+                    <ColumnDefinition Width="65*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="10" Orientation="Vertical">
+                    <Label Content="Letter:" />
+                    <ComboBox SelectedItem="{Binding Guess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding alphabet}" Height="27" />
+                </StackPanel>
+                <Button Content="Indienen" Grid.Column="1" Grid.RowSpan="2" Margin="25" Command="{Binding buttonCommand, IsAsync=True}"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Status"  Grid.Row="1" Grid.ColumnSpan="2" Margin="25">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45*"/>
+                    <RowDefinition Height="43*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="271*"/>
+                    <ColumnDefinition Width="184*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="{Binding CharactersGuessed, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Grid.RowSpan="2"/>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" >
+                    <Label Content="{Binding GuessRightAmount, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="Letters goed"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" >
+                    <Label Content="{Binding GuessWrongAmount, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="Letters fout" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>
