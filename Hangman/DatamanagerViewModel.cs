@@ -12,7 +12,7 @@ namespace Hangman_MVVM
     {
         private Words wordModel;
 
-        public IEnumerable<Word> WordList
+        public ObservableCollection<Word> WordList
         {
             get
             {
@@ -22,7 +22,7 @@ namespace Hangman_MVVM
             {
                 if (wordModel.WordList != value)
                 {
-                    wordModel.WordList = (ObservableCollection<Word>)value;
+                    wordModel.WordList = value;
                     InvokePropertyChanged();
                 }
             }

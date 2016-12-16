@@ -18,9 +18,7 @@ namespace Hangman_MVVM
         private HangmanModel model;
         public IMessengerService messenger { get; set; }
         public IDataManager dataManager { get; set; }
-
         public List<char> alphabet { get; set; }
-
         
         public char? Guess
         {
